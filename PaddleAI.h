@@ -1,28 +1,19 @@
+#pragma once
+
 #include "Paddle.h"
 
-class Game;
 class Ball;
 
 class PaddleAI : public Paddle
 {
 private:
-    Game* game;
+    const float m_x;
     Ball* ball;
+
 public:
-    PaddleAI(Game* game, Ball* ball) : Paddle(game), ball(ball) {}
-    void setDirection() {
-        if (ball->getY() > m_y)
-        {
-            m_direction = 1;
-        }
-        else if (ball->getY() < m_y)
-        {
-            m_direction = -1;
-        }
-        else
-        {
-            m_direction = 0;
-        }
-    }
-    // void update(float deltaTime);
+    PaddleAI(Game* game, Ball* ball);
+    void setDirection();
+    void update(float deltaTime);
+    const float getX() const { return m_x; }
+    // void handleWindowResize();
 };

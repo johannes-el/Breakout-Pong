@@ -39,6 +39,10 @@ bool Game::initialize()
         SDL_Log("Failed to create renderer: %s", SDL_GetError());
         return false;
     }
+    SDL_GetWindowSize(m_window, &m_windowWidth, &m_windowHeight);
+
+    TileFactory tileFactory(this);
+    tiles = tileFactory.generateTiles();
 
     return true;
 }
@@ -56,6 +60,13 @@ void Game::processInput()
         {
         case SDL_QUIT:
             m_isRunning = false;
+            break;
+        case SDL_WINDOWEVENT:
+            if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+            {
+                SDL_GetWindowSize(m_window, &m_windowWidth, &m_windowHeight);
+                // m_paddleAI->handleWindowResize();
+            }
             break;
         }
     }
@@ -76,8 +87,7 @@ void Game::generateOutput()
 {
     // Query the window size
     SDL_GetWindowSize(m_window, &m_windowWidth, &m_windowHeight);
-
-    SDL_SetRenderDrawColor(m_renderer, 0, 0, 255, 255);
+    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0);
     SDL_RenderClear(m_renderer);
     SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
     SDL_Rect wallTop{
@@ -87,34 +97,50 @@ void Game::generateOutput()
         15 // Height
     };
     SDL_Rect wallBottom{0, m_windowHeight - 15, m_windowWidth, 15};
-    // SDL_Rect wallRight{m_windowWidth - 15, 0, 15, m_windowHeight};
     SDL_Rect ballRect
     {
-        static_cast<int>(m_ball->getX() - 15 / 2),
-        static_cast<int>(m_ball->getY() - 15 / 2),
+        static_cast<int>(m_ball->getX()),
+        static_cast<int>(m_ball->getY()),
         15,
         15
     };
     SDL_Rect paddleRect
     {
         static_cast<int>(m_paddle->getX()),
-        static_cast<int>(m_paddle->getY() - 50),
+        static_cast<int>(m_paddle->getY() - m_paddle->getHeight() / 2.0f),
         15,
         100
     };
     SDL_Rect paddleAIRect
     {
-        static_cast<int>(getWindowWidth() - 15),
-        static_cast<int>(m_paddleAI->getY() - 50),
+        static_cast<int>(m_paddleAI->getX()),
+        static_cast<int>(m_paddleAI->getY() - m_paddleAI->getHeight() / 2.0f),
         15,
         100
     };
+    // Render all the tiles in the vector
+    for (auto& tile : tiles)
+    {
+        SDL_Rect tileRect
+        {
+            static_cast<int>(tile.getX()),
+            static_cast<int>(tile.getY()),
+            static_cast<int>(tile.getWidth()),
+            static_cast<int>(tile.getHeight())
+        };
+        SDL_RenderFillRect(m_renderer, &tileRect);
+    }
     SDL_RenderFillRect(m_renderer, &wallTop);
     SDL_RenderFillRect(m_renderer, &wallBottom);
-    // SDL_RenderFillRect(m_renderer, &wallRight);
     SDL_RenderFillRect(m_renderer, &ballRect);
     SDL_RenderFillRect(m_renderer, &paddleRect);
-    SDL_RenderFillRect(m_renderer, &paddleAIRect);
+    if (!(m_ball->getSpeed().x < 0 && m_ball->getX() <= m_paddleAI->getX()+100 && m_ball->getX() >= m_paddleAI->getX()-100
+        && m_ball->getY() <= m_paddleAI->getY()+50 && m_ball->getY() >= m_paddleAI->getY()-50
+        && m_ball->getTileBroken()))
+    {
+        std::cout << "State of m_tileBroken: " << m_ball->getTileBroken() << std::endl;
+        SDL_RenderFillRect(m_renderer, &paddleAIRect); // Hide paddleAI when ball is bouncing off tiles
+    }
     SDL_RenderPresent(m_renderer);
 }
 
@@ -128,12 +154,13 @@ void Game::updateGame()
         ;
     }
     float deltaTime = (SDL_GetTicks() - m_ticksCount) / 1000.0f;
-    m_ticksCount = SDL_GetTicks();
     // Limit maximum delta time
     if (deltaTime > 0.05f)
     {
         deltaTime = 0.05f;
     }
+
+    m_ticksCount = SDL_GetTicks();
 
     if (m_paddle->getDirection() != 0)
     {
@@ -149,6 +176,8 @@ void Game::updateGame()
     m_ball->collideWithWall();
 
     m_ball->collideWithPaddle();
+
+    m_ball->collideWithTile(tiles);
 
     if (m_ball->ballOffScreen())
     {

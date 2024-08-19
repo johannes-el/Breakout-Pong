@@ -4,10 +4,13 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include <iostream>
+#include "TileFactory.h"
+#include <vector>
 // #include "PaddleAI.h"
 
 class Ball;
 class PaddleAI;
+class Tile;
 
 class Game
 {
@@ -21,6 +24,7 @@ private:
     Ball* m_ball;
     Paddle* m_paddle;
     PaddleAI* m_paddleAI;
+    std::vector<Tile> tiles {};
     // PaddleAI m_paddleAI;
 
 public:
