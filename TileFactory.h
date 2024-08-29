@@ -1,3 +1,8 @@
+/**
+ * @class TileFactory
+ * @brief The TileFactory class is responsible for generating the tiles for the game.
+ */
+
 #pragma once
 
 #include "Tile.h"

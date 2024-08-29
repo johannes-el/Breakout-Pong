@@ -1,3 +1,10 @@
+/**
+ * @class Game
+ * @brief Represents the game logic and functionality.
+ * 
+ * The Game class manages the game window, renderer, game objects, and game loop.
+ * It handles user input, updates the game state, and generates the output.
+ */
 #pragma once
 
 #include <SDL.h>
@@ -6,7 +13,6 @@
 #include <iostream>
 #include "TileFactory.h"
 #include <vector>
-// #include "PaddleAI.h"
 
 class Ball;
 class PaddleAI;
@@ -19,18 +25,19 @@ private:
     int m_windowWidth;
     int m_windowHeight;
     SDL_Renderer* m_renderer;
-    bool m_isRunning;
+    bool m_isRunning {true};
     int m_ticksCount {0};
     Ball* m_ball;
     Paddle* m_paddle;
     PaddleAI* m_paddleAI;
-    std::vector<Tile> tiles {};
-    // PaddleAI m_paddleAI;
+    std::vector<Tile> m_tiles {};
+    bool m_pausedPrevious {false};
+    bool m_paused {false};
 
 public:
     Game(Ball* ball, Paddle* paddle, PaddleAI* paddleAI) : m_ball(ball), m_paddle(paddle), m_paddleAI(paddleAI) {}
-    int getWindowWidth() const {return m_windowWidth;}
-    int getWindowHeight() const {return m_windowHeight;}
+    float getWindowWidth() const {return m_windowWidth;}
+    float getWindowHeight() const {return m_windowHeight;}
     void setBall(Ball* ball) {this->m_ball = ball;}
     void setPaddle(Paddle* paddle) {this->m_paddle = paddle;}
     void setPaddleAI(PaddleAI* paddleAI) {this->m_paddleAI = paddleAI;}
