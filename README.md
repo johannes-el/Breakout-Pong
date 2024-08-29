@@ -20,4 +20,4 @@ Created by building upon the Pong tutorial in the book "Game Programming in C++:
 
 ## Quick start guide
 
-See the releases section or click [here](https://github.com/MJKagone/Breakout-Pong/releases/latest). Download the zip file and extract the contents. Run `breakoutpong.exe`.
+See the releases section or click [here](https://github.com/MJKagone/Breakout-Pong/releases/latest). Download the zip file and extract the contents. Run `BreakoutPong.exe`.
