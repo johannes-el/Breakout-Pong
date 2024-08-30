@@ -4,7 +4,7 @@
 
 ## Description
 
-The classic Atari games Breakout and Pong combined. The goal is to bounce the ball off the opponent's (right) side of the screen while preventing it from bouncing off yours (left). There is a simple AI-controlled paddle and multiple breakable tiles opposing the player. The game is over when the ball hits either side of the screen.
+The classic Atari games Breakout and Pong combined. The goal is to bounce the ball off the opponent's side of the screen (right) while preventing it from bouncing off yours (left). There is a simple AI-controlled paddle and multiple breakable tiles opposing the player. The game is over when the ball hits either side of the screen.
 
 Created by building upon the Pong tutorial in the book "Game Programming in C++: Creating 3D Games" by Sanjay Madhav. Utilizes the SDL2 library for rendering and input handling.
 
@@ -23,6 +23,7 @@ Created by building upon the Pong tutorial in the book "Game Programming in C++:
 
 - Remove magic numbers to ensure compatibility with different screen resolutions
 - Implement a proper game over screen & restart button
+- Implement the possibility to aim the ball instead of using uniform bounce angles
 
 ## Quick start guide
 
