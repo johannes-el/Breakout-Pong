@@ -14,9 +14,8 @@
  * @param paddle Pointer to the Paddle object.
  * @param paddleAI Pointer to the PaddleAI object.
  */
-Ball::Ball(float width, Ball::speed speed, const Game* game, const Paddle* paddle, const PaddleAI* paddleAI)
-: m_game {game}, m_paddle {paddle}, m_paddleAI {paddleAI}, m_tileBroken {false},
-m_width {width}, m_x {game->getWindowWidth()/2.5f}, m_y {game->getWindowHeight()/2.0f}
+Ball::Ball(float width, Ball::speed speed, Game* game)
+: m_tileBroken {false}, m_width {width}, m_game {game}, m_x {game->getWindowWidth()/2.5f}, m_y {game->getWindowHeight()/2.0f}
 {
     // Random coin flip to initialize direction
     std::random_device rd;
@@ -106,14 +105,14 @@ void Ball::collideWithWall()
  * 
  * @return true if collision is detected, false otherwise.
  */
-bool Ball::detectCollisionWithPaddle()
+bool Ball::detectCollisionWithPaddle(const Paddle* paddle, const PaddleAI* paddleAI)
 {
-    if (m_x <= m_paddle->getX() + m_paddle->getWidth() && m_x >= m_paddle->getX() && m_y >= m_paddle->getY() - m_paddle->getHeight()/2.0f && m_y <= m_paddle->getY() + m_paddle->getHeight()/2.0f && m_speed.x < 0)
+    if (m_x <= paddle->getX() + paddle->getWidth() && m_x >= paddle->getX() && m_y >= paddle->getY() - paddle->getHeight()/2.0f && m_y <= paddle->getY() + paddle->getHeight()/2.0f && m_speed.x < 0)
     {
         m_tileBroken = false;
         return true;
     }
-    if (m_x + m_width >= m_paddleAI->getX() && m_x + m_width <= m_paddleAI->getX() + m_paddleAI->getWidth() && m_y >= m_paddleAI->getY() - m_paddleAI->getHeight()/2.0f && m_y <= m_paddleAI->getY() + m_paddleAI->getHeight()/2.0f && m_speed.x > 0)
+    if (m_x + m_width >= paddleAI->getX() && m_x + m_width <= paddleAI->getX() + paddleAI->getWidth() && m_y >= paddleAI->getY() - paddleAI->getHeight()/2.0f && m_y <= paddleAI->getY() + paddleAI->getHeight()/2.0f && m_speed.x > 0)
     {
         m_tileBroken = false;
         return true;
@@ -130,7 +129,7 @@ bool Ball::detectCollisionWithPaddle()
  */
 void Ball::collideWithPaddle()
 {
-    if (detectCollisionWithPaddle())
+    if (detectCollisionWithPaddle(m_game->getPaddle(), m_game->getPaddleAI()))
     {
         m_speed.x *= -1;
     }

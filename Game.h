@@ -38,6 +38,8 @@ public:
     Game(Ball* ball, Paddle* paddle, PaddleAI* paddleAI) : m_ball(ball), m_paddle(paddle), m_paddleAI(paddleAI) {}
     float getWindowWidth() const {return m_windowWidth;}
     float getWindowHeight() const {return m_windowHeight;}
+    const Paddle* getPaddle() const {return m_paddle;}
+    const PaddleAI* getPaddleAI() const {return m_paddleAI;}
     void setBall(Ball* ball) {this->m_ball = ball;}
     void setPaddle(Paddle* paddle) {this->m_paddle = paddle;}
     void setPaddleAI(PaddleAI* paddleAI) {this->m_paddleAI = paddleAI;}

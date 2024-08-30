@@ -49,7 +49,7 @@ bool Game::initialize()
     }
 
     SDL_GetWindowSize(m_window, &m_windowWidth, &m_windowHeight);
-
+    std::cout << "Window size: " << m_windowWidth << "x" << m_windowHeight << std::endl;
     TileFactory tileFactory(this);
     m_tiles = tileFactory.generateTiles();
 
