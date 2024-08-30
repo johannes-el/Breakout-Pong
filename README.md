@@ -20,7 +20,7 @@ Created by building upon the Pong tutorial in the book "Game Programming in C++:
 
 ## Things I was too lazy to do
 
-- Remove magic numbers to ensure compatibility with different screen sizes
+- Remove magic numbers to ensure compatibility with different screen resolutions
 - Implement a proper game over screen & restart button
 
 ## Quick start guide
