@@ -15,8 +15,8 @@ Created by building upon the Pong tutorial in the book "Game Programming in C++:
 
 ## Features
 
-- Accurate collision detection with walls, paddles and tiles
-- Ball speed increases with each tile hit
+- Proper collision detection with walls, paddles and tiles
+- Ball speed increases slightly with each tile hit
 - AI paddle dodges the ball when bouncing off of tiles
 
 ## Things I was too lazy to do
@@ -25,6 +25,8 @@ Created by building upon the Pong tutorial in the book "Game Programming in C++:
 - Implement a proper game over screen & restart button
 - Implement the possibility to aim the ball instead of using uniform bounce angles
 
+Feel free to open up an issue and contribute! No need to worry about what's the "correct" way to do these things, I'm still learning too.
+
 ## Quick start guide
 
-See the releases section or click [here](https://github.com/MJKagone/Breakout-Pong/releases/latest). Download the zip file and extract the contents. Run `breakoutpong.exe`.
+See the releases section or click [here](https://github.com/MJKagone/Breakout-Pong/releases/latest). Download the zip file and extract the contents. Run `BreakoutPong.exe`.
