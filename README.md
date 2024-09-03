@@ -25,7 +25,7 @@ Created by building upon the Pong tutorial in the book "Game Programming in C++:
 - Implement a proper game over screen & restart button
 - Implement the possibility to aim the ball instead of using uniform bounce angles
 
-Feel free to open up an issue and contribute! No need to worry about what's the "correct" way to do these things, I'm still learning too.
+Feel free to open up an issue or create a pull request to contribute! No need to worry about what's the "correct" way to do these things, I'm still learning too.
 
 ## Quick start guide
 
