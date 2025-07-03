@@ -246,6 +246,16 @@ void Game::updateGame()
         }
     }
 
+    if (m_state == GameState::GAME_OVER)
+    {
+        Menu::updateEndMenu(m_state);
+    }
+
+    if (m_state == GameState::QUIT)
+    {
+        m_isRunning = false;
+    }
+
     if (m_state != GameState::RUNNING || m_paused) return;
 
     SDL_GetWindowSize(m_window, &m_windowWidth, &m_windowHeight);

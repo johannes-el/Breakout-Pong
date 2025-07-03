@@ -37,6 +37,8 @@ void Button::draw(SDL_Renderer* renderer) const {
 
 namespace Menu {
     static Button startButton{{0, 0, 200, 60}, true};
+    static Button endButton{{0, 0, 200, 60}, false};
+    // static Button replayButton{{0, 0, 200, 60}, true};
     static TTF_Font* font = nullptr;
 
     void initMenu(int screenWidth, int screenHeight)
@@ -45,7 +47,11 @@ namespace Menu {
             font = TTF_OpenFont("../font.ttf", 24);
 
         int btnW = 300, btnH = 60;
-        startButton = Button({(screenWidth - btnW) / 2, (screenHeight - btnH) / 2, btnW, btnH}, true);
+        int centerX = (screenWidth - btnW) / 2;
+
+        startButton = Button({centerX, screenHeight / 2 - 30, btnW, btnH}, true);
+        endButton   = Button({centerX, screenHeight / 2 - 100, btnW, btnH}, true);
+        // replayButton = Button({centerX, screenHeight / 2 + 40, btnW, btnH}, true);
     }
 
     void renderCenteredText(SDL_Renderer* renderer, const char* text, SDL_Rect area)
@@ -81,10 +87,27 @@ namespace Menu {
         }
     }
 
-    void drawEndMenu(SDL_Renderer* renderer) {
-        SDL_Rect screenCenter = {300, 200, 200, 60};
-        renderCenteredText(renderer, "The End", screenCenter);
+    void drawEndMenu(SDL_Renderer* renderer)
+    {
+        endButton.draw(renderer);
+        renderCenteredText(renderer, "Quit", endButton.getRect());
+
+        // replayButton.draw(renderer);
+        // renderCenteredText(renderer, "Replay", replayButton.getRect());
     }
 
-    void updateEndMenu() {}
+    void updateEndMenu(GameState &gameState)
+    {
+        if (endButton.isMouseContained() && endButton.isMouseClicked())
+        {
+            gameState = GameState::QUIT;
+        }
+
+        /*
+        if (replayButton.isMouseContained() && replayButton.isMouseClicked())
+        {
+            gameState = GameState::RUNNING;
+        }
+        */
+    }
 }

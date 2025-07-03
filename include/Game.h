@@ -23,7 +23,8 @@ enum class GameState
     MENU,
     RUNNING,
     PAUSED,
-    GAME_OVER
+    GAME_OVER,
+    QUIT,
 };
 
 class Game
