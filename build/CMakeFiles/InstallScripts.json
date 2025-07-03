@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/johannes/Programming/Breakout-Pong/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

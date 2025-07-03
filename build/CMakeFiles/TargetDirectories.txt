@@ -1,0 +1,3 @@
+/home/johannes/Programming/Breakout-Pong/build/CMakeFiles/BreakoutPong.dir
+/home/johannes/Programming/Breakout-Pong/build/CMakeFiles/edit_cache.dir
+/home/johannes/Programming/Breakout-Pong/build/CMakeFiles/rebuild_cache.dir

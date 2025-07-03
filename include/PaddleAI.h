@@ -16,15 +16,15 @@ class Ball;
 
 class PaddleAI : public Paddle
 {
-private:
-    const float m_x;
-    float m_height;
-    float m_speed;
-    Ball* ball;
-
 public:
     PaddleAI(Game* game, Ball* ball, float height, float width, float speed);
     void setDirection();
     void update(float deltaTime);
     const float getX() const { return m_x; }
+
+private:
+    const float m_x;
+    float m_height;
+    float m_speed;
+    Ball* ball;
 };

@@ -2,10 +2,22 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "PaddleAI.h"
+#include "Logger.h"
 
 int main(int argc, char* argv[])
 {
-    Game game(nullptr, nullptr, nullptr); // Ball, Paddle, PaddleAI
+    bool debugMode = false;
+    for (int i = 1; i < argc; ++i)
+    {
+        if (std::string(argv[i]) == "--debug")
+        {
+            debugMode = true;
+            Logger::SetLogLevel(Logger::LogLevel::Debug);
+            break;
+        }
+    }
+
+    Game game(debugMode); // Ball, Paddle, PaddleAI
 
     if (game.initialize())
     {
@@ -20,7 +32,7 @@ int main(int argc, char* argv[])
     }
     else 
     {
-        std::cerr << "Game initialization failed." << std::endl;
+        std::cerr << "Game initialization failed!\n";
     }
 
     game.shutdown();
