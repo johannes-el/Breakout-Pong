@@ -25,6 +25,6 @@ namespace Menu {
     void initMenu(int screenWidth, int screenHeight);
     void drawStartMenu(SDL_Renderer* renderer);
     void updateStartMenu(GameState &gameState);
-    void drawEndMenu(SDL_Renderer* renderer);
+    void drawEndMenu(SDL_Renderer* renderer, GameState &gameState);
     void updateEndMenu(GameState &gameState);
 }

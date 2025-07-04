@@ -281,13 +281,17 @@ void Ball::collideWithTile(std::vector<Tile>& tiles)
 /**
  * Checks if the ball is off the screen.
  * 
- * @return true if the ball is off the screen, false otherwise.
+ * @return 1 if the ball is off the screen to the left, 2 if to the right, false otherwise.
  */
-bool Ball::ballOffScreen()
+int Ball::ballOffScreen()
 {
-    if (m_x <= 0 || m_x >= m_game->getWindowWidth())
+    if (m_x <= 0)
     {
-        return true;
+        return 1;
+    }
+    else if (m_x >= m_game->getWindowWidth())
+    {
+        return 2;
     }
     return false;
 }

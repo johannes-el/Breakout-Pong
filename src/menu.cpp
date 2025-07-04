@@ -76,7 +76,7 @@ namespace Menu {
     void drawStartMenu(SDL_Renderer* renderer)
     {
         startButton.draw(renderer);
-        renderCenteredText(renderer, "Pong-Breakout", startButton.getRect());
+        renderCenteredText(renderer, "START", startButton.getRect());
     }
 
     void updateStartMenu(GameState &gameState)
@@ -87,10 +87,17 @@ namespace Menu {
         }
     }
 
-    void drawEndMenu(SDL_Renderer* renderer)
+    void drawEndMenu(SDL_Renderer* renderer, GameState &gameState)
     {
         endButton.draw(renderer);
-        renderCenteredText(renderer, "Quit", endButton.getRect());
+        if (gameState == GameState::GAME_OVER)
+        {
+            renderCenteredText(renderer, "GAME OVER", endButton.getRect());
+        }
+        else if (gameState == GameState::VICTORY)
+        {
+            renderCenteredText(renderer, "VICTORY!", endButton.getRect());
+        }
 
         // replayButton.draw(renderer);
         // renderCenteredText(renderer, "Replay", replayButton.getRect());

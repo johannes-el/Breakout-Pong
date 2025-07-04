@@ -44,6 +44,6 @@ public:
     void collideWithWall();
     void collideWithPaddle();
     void collideWithTile(std::vector<Tile>& tiles);
-    bool ballOffScreen();
+    int ballOffScreen();
     void drawBall(SDL_Renderer* renderer, int centerX, int centerY, int radius);
 };

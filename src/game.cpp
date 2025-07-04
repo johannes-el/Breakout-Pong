@@ -43,7 +43,7 @@ bool Game::initialize()
     }
 
     m_window = SDL_CreateWindow(
-        "Breakout Pong",
+        "Breakout-Pong",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         SCREEN_WIDTH,
@@ -182,11 +182,11 @@ void Game::processInput()
     }
     m_pausedPrevious = currentPauseState;
 
-    if (state[SDL_SCANCODE_UP])
+    if (state[SDL_SCANCODE_UP] || state[SDL_SCANCODE_W])
     {
         m_paddle->setDirection(-2);
     }
-    if (state[SDL_SCANCODE_DOWN])
+    if (state[SDL_SCANCODE_DOWN] || state[SDL_SCANCODE_S])
     {
         m_paddle->setDirection(2);
     }
@@ -211,9 +211,10 @@ void Game::generateOutput()
         case GameState::RUNNING:
             drawRunning();
             break;
-
+        
+        case GameState::VICTORY:
         case GameState::GAME_OVER:
-            Menu::drawEndMenu(m_renderer);
+            Menu::drawEndMenu(m_renderer, m_state);
             break;
     }
 
@@ -246,9 +247,14 @@ void Game::updateGame()
         }
     }
 
-    if (m_state == GameState::GAME_OVER)
+    if (m_state == GameState::GAME_OVER || m_state == GameState::VICTORY)
     {
         Menu::updateEndMenu(m_state);
+        const Uint8* state = SDL_GetKeyboardState(nullptr);
+        if (state[SDL_SCANCODE_RETURN])
+        {
+            m_state = GameState::QUIT;
+        }
     }
 
     if (m_state == GameState::QUIT)
@@ -283,9 +289,13 @@ void Game::updateGame()
     m_ball->collideWithPaddle();
     m_ball->collideWithTile(m_tiles);
 
-    if (m_ball->ballOffScreen())
+    if (m_ball->ballOffScreen()==1)
     {
         m_state = GameState::GAME_OVER;
+    }
+    else if (m_ball->ballOffScreen()==2)
+    {
+        m_state = GameState::VICTORY;
     }
 }
 
